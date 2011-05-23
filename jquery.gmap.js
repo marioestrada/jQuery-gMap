@@ -7,6 +7,8 @@
  */
 (function($)
 {
+	$.gMap = {};
+	
 	// Main plugin function
 	$.fn.gMap = function(options)
 	{
@@ -98,22 +100,23 @@
 			// Check if scrollwheel should be enabled
 			if (opts.scrollwheel == true && opts.controls.length != 0) { $gmap.enableScrollWheelZoom(); }
 									
+			// Create new icon
+			gicon = new GIcon();
+			
+			// Set icon properties from global options
+			gicon.image = opts.icon.image;
+			gicon.shadow = opts.icon.shadow;
+			gicon.iconSize = ($.isArray(opts.icon.iconsize)) ? new GSize(opts.icon.iconsize[0], opts.icon.iconsize[1]) : opts.icon.iconsize;
+			gicon.shadowSize = ($.isArray(opts.icon.shadowsize)) ? new GSize(opts.icon.shadowsize[0], opts.icon.shadowsize[1]) : opts.icon.shadowsize;
+			gicon.iconAnchor = ($.isArray(opts.icon.iconanchor)) ? new GPoint(opts.icon.iconanchor[0], opts.icon.iconanchor[1]) : opts.icon.iconanchor;
+			gicon.infoWindowAnchor = ($.isArray(opts.icon.infowindowanchor)) ? new GPoint(opts.icon.infowindowanchor[0], opts.icon.infowindowanchor[1]) : opts.icon.infowindowanchor;
+			$.gMap.gIcon = gicon;
+												
 			// Loop through marker array
 			for (var j = 0; j < opts.markers.length; j++)
 			{
 				// Get the options from current marker
 				marker = opts.markers[j];
-								
-				// Create new icon
-				gicon = new GIcon();
-				
-				// Set icon properties from global options
-				gicon.image = opts.icon.image;
-				gicon.shadow = opts.icon.shadow;
-				gicon.iconSize = ($.isArray(opts.icon.iconsize)) ? new GSize(opts.icon.iconsize[0], opts.icon.iconsize[1]) : opts.icon.iconsize;
-				gicon.shadowSize = ($.isArray(opts.icon.shadowsize)) ? new GSize(opts.icon.shadowsize[0], opts.icon.shadowsize[1]) : opts.icon.shadowsize;
-				gicon.iconAnchor = ($.isArray(opts.icon.iconanchor)) ? new GPoint(opts.icon.iconanchor[0], opts.icon.iconanchor[1]) : opts.icon.iconanchor;
-				gicon.infoWindowAnchor = ($.isArray(opts.icon.infowindowanchor)) ? new GPoint(opts.icon.infowindowanchor[0], opts.icon.infowindowanchor[1]) : opts.icon.infowindowanchor;
 				
 				if (marker.icon)
 				{
@@ -124,7 +127,6 @@
 					gicon.shadowSize = ($.isArray(marker.icon.shadowsize)) ? new GSize(marker.icon.shadowsize[0], marker.icon.shadowsize[1]) : marker.icon.shadowsize;
 					gicon.iconAnchor = ($.isArray(marker.icon.iconanchor)) ? new GPoint(marker.icon.iconanchor[0], marker.icon.iconanchor[1]) : marker.icon.iconanchor;
 					gicon.infoWindowAnchor = ($.isArray(marker.icon.infowindowanchor)) ? new GPoint(marker.icon.infowindowanchor[0], marker.icon.infowindowanchor[1]) : marker.icon.infowindowanchor;
-					
 				}
 				
 				// Check if address is available
@@ -173,6 +175,8 @@
 				
 			}
 			
+			$.gMap.gMap = $gmap;
+			
 		});
 		
 	}
@@ -201,6 +205,30 @@
 			
 		}
 		
+	}
+	
+	
+	$.gMap.addMarker = function(lat, lng, content)
+	{
+		var gmap = $.gMap.gMap;
+		var glatlng = new GLatLng(parseFloat(lat), parseFloat(lng));
+		var gmarker = new GMarker(glatlng, {icon: $.gMap.gIcon, draggable: false});
+		
+		gmarker.bindInfoWindowHtml(content);
+		gmap.addOverlay(gmarker);
+		
+		return gmarker;
+	}
+	
+	$.gMap.centerAt = function(lat, lng, zoom)
+	{
+		var gmap = $.gMap.gMap;
+		if(zoom)
+			gmap.setZoom(zoom);
+		
+		gmap.panTo(new GLatLng(parseFloat(lat), parseFloat(lng)));
+		
+		return gmap;
 	}
 	
 })(jQuery);
