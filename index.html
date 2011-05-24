@@ -80,7 +80,7 @@ $(function()
 			},
 			{
 				address: "Guayaquil, Ecuador",
-				html: "My hometown"
+				html: "My Hometown"
 			},
 			{
 				address: "Galapagos, Ecuador",
@@ -91,28 +91,44 @@ $(function()
 
 	$("#map_extended").gMap({
 		controls: false,
-	    scrollwheel: false,
-	    markers: [{ latitude: 47.670553,
-	                              longitude: 9.588479,
-	                              icon: { image: "images/gmap_pin_orange.png",
-	                                      iconsize: [26, 46],
-	                                      iconanchor: [12,46],
-	                                      infowindowanchor: [12, 0] } },
-	                            { latitude: 47.65197522925437,
-	                              longitude: 9.47845458984375 },
-	                            { latitude: 47.594996,
-	                              longitude: 9.600708,
-	                              icon: { image: "images/gmap_pin_grey.png",
-	                                      iconsize: [26, 46],
-	                                      iconanchor: [12,46],
-	                                      infowindowanchor: [12, 0] } }],
-	    icon: { image: "images/gmap_pin.png", 
-	                          iconsize: [26, 46],
-	                          iconanchor: [12, 46],
-	                          infowindowanchor: [12, 0] },
-	    latitude: 47.58969,
-	    longitude: 9.473413,
-	    zoom: 10 });
+		scrollwheel: false,
+		maptype: 'TERRAIN',
+		markers: [
+			{
+				latitude: 47.670553,
+				longitude: 9.588479,
+				icon: {
+					image: "images/gmap_pin_orange.png",
+					iconsize: [26, 46],
+					iconanchor: [12,46],
+					infowindowanchor: [12, 0]
+				}
+			},
+	        {
+				latitude: 47.65197522925437,
+				longitude: 9.47845458984375
+			},
+			{
+				latitude: 47.594996,
+				longitude: 9.600708,
+				icon: {
+					image: "images/gmap_pin_grey.png",
+					iconsize: [26, 46],
+					iconanchor: [12,46],
+					infowindowanchor: [12, 0]
+				}
+			}
+		],
+		icon: {
+			image: "images/gmap_pin.png", 
+			iconsize: [26, 46],
+			iconanchor: [12, 46],
+			infowindowanchor: [12, 0]
+		},
+		latitude: 47.58969,
+		longitude: 9.473413,
+		zoom: 10
+	});
 });
 </script>
 

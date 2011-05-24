@@ -217,26 +217,24 @@
 	}
 		
 	// Default settings
-	$.fn.gMap.defaults =
-	{
-		address:				'',
-		latitude:				0,
-		longitude:				0,
-		zoom:					1,
-		markers:				[],
-		controls:				[],
-		scrollwheel:			true,
-		maptype:				'ROADMAP',
-		html_prepend:			'<div class="gmap_marker">',
-		html_append:			'</div>',
-		icon:
-		{
-			image:				"http://www.google.com/mapfiles/marker.png",
-			shadow:				"http://www.google.com/mapfiles/shadow50.png",
-			iconsize:			[20, 34],
-			shadowsize:			[37, 34],
-			iconanchor:			[9, 34],
-			shadowanchor:		[19, 34]
+	$.fn.gMap.defaults = {
+		address: '',
+		latitude: 0,
+		longitude: 0,
+		zoom: 1,
+		markers: [],
+		controls: [],
+		scrollwheel: true,
+		maptype: 'ROADMAP',
+		html_prepend: '<div class="gmap_marker">',
+		html_append: '</div>',
+		icon: {
+			image: "http://www.google.com/mapfiles/marker.png",
+			shadow: "http://www.google.com/mapfiles/shadow50.png",
+			iconsize: [20, 34],
+			shadowsize: [37, 34],
+			iconanchor: [9, 34],
+			shadowanchor: [19, 34]
 		}
 	}
 	
