@@ -16,6 +16,16 @@ This tiny line of code is being used to embed the map below. Simple, isn't it?
 
 ## Different Usage
 
+You need to use the Maps API V3 Javascript from Google, you can set the `sensor` parameter to `true` or `false` to detect the user's location, **there's no need to generate an API key**:
+
+```html
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="jquery.gmap.min.js"></script>
+```
+
+This version uses the same documentation as the [original version](http://gmap.nurtext.de/documentation.html) with the following differences:
+
 The `maptype` has to be set as an **string** and can be set to any of these values: `'HYBRID'`, `'TERRAIN'`, `'SATELLITE'` or `'ROADMAP'`.
 
 Added the `shadowanchor` setting to position the shadow properly.
