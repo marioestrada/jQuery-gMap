@@ -86,12 +86,12 @@ This methods should be called on elements with initialized maps.
 * `centerAt`, usage:
 
 ```javascript
-        $('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
+$('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
 ```
 * `addMarker`, usage:
 
 ```javascript
-        $('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
+$('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
 ```
 
 ## Original License

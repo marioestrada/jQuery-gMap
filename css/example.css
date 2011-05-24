@@ -1,7 +1,7 @@
 body{
     font-family: Helvetica, sans-serif;
     padding: 10px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 16px;
     width: 600px;
     margin: 0 auto;
@@ -86,6 +86,7 @@ h2{
 }
 
 pre{
+	font-size: 12px;
 	padding: 10px;
 	/*word-wrap: break-word;*/
 	overflow: auto;
