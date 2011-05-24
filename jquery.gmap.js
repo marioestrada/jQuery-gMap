@@ -13,13 +13,13 @@
 	$.fn.gMap = function(options)
 	{
 		// Build main options before element iteration
-		var opts = $.extend({}, $.fn.gMap.defaults, options);
+		opts = $.extend({}, $.fn.gMap.defaults, options);
     	
 		// Iterate through each element
 		return this.each(function()
 		{
 			// Create map and set initial options
-			$gmap = new google.maps.Map(this);
+			var $gmap = new google.maps.Map(this);
 			
 			// Create new object to geocode addresses
 			$geocoder = new google.maps.Geocoder();
@@ -31,9 +31,10 @@
 				$geocoder.geocode(
 					{
 						address: opts.address
-					}, function(gresult)
+					}, function(gresult, status)
 					{
-						$gmap.setCenter(gresult.geometry.location);
+						if(gresult.length > 0)
+							$gmap.setCenter(gresult[0].geometry.location);
 					}
 				);
 			}else{
@@ -55,41 +56,37 @@
 							$geocoder.geocode(
 								{
 									address: opts.markers[0].address
-								}, function(gresult)
+								}, function(gresult, status)
 								{
-									$gmap.setCenter(gresult.geometry.location);
+									if(gresult.length > 0)
+										$gmap.setCenter(gresult[0].geometry.location);
 								}
 							);
 						}else{
 							// Center the map to coordinates given by marker
 							$gmap.setCenter(new google.maps.LatLng(opts.markers[0].latitude, opts.markers[0].longitude));
 						}
-						
-						
 					}else{
 						// Revert back to world view
 						$gmap.setCenter(new google.maps.LatLng(34.885931, 9.84375));
 					}
 				}
-				$gmap.setZoom(opts.zoom);
-			}
-						
+			}	
+			$gmap.setZoom(opts.zoom);
+			
 			// Set the preferred map type
 			$gmap.setMapTypeId(google.maps.MapTypeId[opts.maptype]);
 			
+			// Set scrollwheel option
+			map_options = { scrollwheel: opts.scrollwheel };
 			// Check for map controls
-			if (opts.controls.length != 0)
-			{
-				// Add custom map controls
-				for (var i = 0; i < opts.controls.length; i++)
-				{
-					// Eval is evil
-					eval('$gmap.addControl(new ' + opts.controls[i] + '());');
-				}
+			if(opts.controls === false){
+				$.extend(map_options, { disableDefaultUI: true });
+			}else if (opts.controls.length != 0){
+				$.extend(map_options, opts.controls, { disableDefaultUI: true });
 			}
-						
-			// Check if scrollwheel should be enabled
-			$gmap.setOptions({ scrollwheel: opts.scrollwheel });
+			
+			$gmap.setOptions(map_options);
 									
 			// Create new icon
 			gicon = new google.maps.Marker();
@@ -100,17 +97,27 @@
 			marker_icon.anchor = new google.maps.Point(opts.icon.iconanchor[0], opts.icon.iconanchor[1]);
 			gicon.setIcon(marker_icon);
 			
-			marker_shadow = new google.maps.MarkerImage(opts.icon.shadow);
-			marker_shadow.size = new google.maps.Size(opts.icon.shadowsize[0], opts.icon.shadowsize[1]);
-			gicon.setShadow(marker_shadow);
+			if(opts.icon.shadow)
+			{
+				marker_shadow = new google.maps.MarkerImage(opts.icon.shadow);
+				marker_shadow.size = new google.maps.Size(opts.icon.shadowsize[0], opts.icon.shadowsize[1]);
+				marker_icon.anchor = new google.maps.Point(opts.icon.shadowanchor[0], opts.icon.shadowanchor[1]);
+				gicon.setShadow(marker_shadow);
+			}
 			$.gMap.gIcon = gicon;
 			
-			infowindows = [];
 			// Loop through marker array
+			var gmarker = [];
+			var infowindows = [];
 			for (var j = 0; j < opts.markers.length; j++)
 			{
 				// Get the options from current marker
 				marker = opts.markers[j];
+				
+				gmarker[j] = new google.maps.Marker({
+					icon: gicon.getIcon(),
+					shadow: gicon.getShadow(),
+				});
 				
 				if (marker.icon)
 				{
@@ -118,12 +125,15 @@
 					marker_icon = new google.maps.MarkerImage(marker.icon.image);
 					marker_icon.size = new google.maps.Size(marker.icon.iconsize[0], marker.icon.iconsize[1]);
 					marker_icon.anchor = new google.maps.Point(marker.icon.iconanchor[0], marker.icon.iconanchor[1]);
+					gmarker[j].setIcon(marker_icon);
 					
-					marker_shadow = new google.maps.MarkerImage(marker.icon.shadow);
-					marker_shadow.size = new google.maps.Size(marker.icon.shadowsize[0], marker.icon.shadowsize[1]);
-					
-					gicon.setIcon(marker_icon);
-					gicon.setShow(marker_shadow);
+					if(marker.icon.shadow)
+					{
+						marker_shadow = new google.maps.MarkerImage(marker.icon.shadow);
+						marker_shadow.size = new google.maps.Size(marker.icon.shadowsize[0], marker.icon.shadowsize[1]);
+						marker_shadow.anchor = new google.maps.Point(marker.icon.shadowanchor[0], marker.icon.shadowanchor[1]);
+						gmarker[j].setShadow(marker_shadow);
+					}	
 				}
 				
 				// Check if address is available
@@ -136,43 +146,26 @@
 					// Get the point for given address
 					$geocoder.geocode({
 						address: marker.address
-					}, function(gicon, marker)
-					{
-						// Since we're in a loop, we need a closure when dealing with event handlers, return functions, etc.
-						// See <http://www.mennovanslooten.nl/blog/post/62> for more information about closures
-						return function(gresult)
+					}, (function(j){
+						return function(gresult, status)
 						{
 							// Create marker
-							gmarker = new google.maps.Marker(gresult.geometry.location, gicon);
-							
-							// Set HTML and check if info window should be opened
-							if (marker.html)
-								gmarker.bindInfoWindowHtml(opts.html_prepend + marker.html + opts.html_append);
-							if (marker.html && marker.popup)
-								gmarker.openInfoWindowHtml(opts.html_prepend + marker.html + opts.html_append);
-							
-							// Add marker to map
-							if (gmarker)
-								gmarker.setMap($gmap);
-						}
-						
-					}(gicon, marker));
+							if(gresult.length > 0)
+							{
+								gmarker[j].setPosition(gresult[0].geometry.location);
+								gmarker[j].setMap($gmap);
+							}
+						};
+					})(j)
+					);
 				}else{
 					// Check for reference to the marker's latitude/longitude
-					if (marker.html == '_latlng') { marker.html = marker.latitude + ', ' + marker.longitude; }
+					if (marker.html == '_latlng')
+						marker.html = marker.latitude + ', ' + marker.longitude;
 					
 					// Create marker
-					gmarker = new GMarker(new GPoint(marker.longitude, marker.latitude), gicon);
-					
-					// Set HTML and check if info window should be opened
-					if (marker.html)
-						gmarker.bindInfoWindowHtml(opts.html_prepend + marker.html + opts.html_append);
-					if (marker.html && marker.popup)
-						gmarker.openInfoWindowHtml(opts.html_prepend + marker.html + opts.html_append);
-						
-					// Add marker to map
-					if(gmarker)
-						gmarper.setMap($gmap);
+					gmarker[j].setPosition(new google.maps.LatLng(marker.latitude, marker.longitude));
+					gmarker[j].setMap($gmap);
 				}
 				
 				if(marker.html)
@@ -180,14 +173,16 @@
 					infowindows[j] = new google.maps.InfoWindow({
 						content: opts.html_prepend + marker.html + opts.html_append
 					});
-					google.maps.event.addListener(gmarker, 'click', function()
-					{
-						infowindows[j].open($gmap, gmarker);
-					});
+					(function(j){
+						google.maps.event.addListener(gmarker[j], 'click', function()
+						{
+							infowindows[j].open($gmap, gmarker[j]);
+						});
+					})(j);
 				}
 				if(marker.html && marker.popup)
 				{
-					infowindows[j].open($gmap, gmarker);
+					infowindows[j].open($gmap, gmarker[j]);
 				}
 			}
 			
@@ -215,7 +210,8 @@
 			shadow:				"http://www.google.com/mapfiles/shadow50.png",
 			iconsize:			[20, 34],
 			shadowsize:			[37, 34],
-			iconanchor:			[9, 34]
+			iconanchor:			[9, 34],
+			shadowanchor:		[19, 34],
 		}
 		
 	}
@@ -225,14 +221,18 @@
 	{
 		var gmap = $.gMap.gMap;
 		var glatlng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
-		var gmarker = new google.maps.Marker(glatlng, {icon: $.gMap.gIcon, draggable: false});
+		var gmarker = new google.maps.Marker({
+			position: glatlng,
+			icon: $.gMap.gIcon,
+			draggable: false
+		});
 		
-		infowindows[j] = new google.maps.InfoWindow({
+		infowindow = new google.maps.InfoWindow({
 			content: gmap.opts.html_prepend + content + gmap.opts.html_append
 		});
 		google.maps.event.addListener(gmarker, 'click', function()
 		{
-			infowindows[j].open($gmap, gmarker);
+			infowindow.open($gmap, gmarker);
 		});
 		gmarker.setMap(gmap);
 		
