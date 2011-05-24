@@ -28,6 +28,18 @@
 	Source Code: <a href="http://github.com/marioestrada/jQuery-gMap">GitHub</a>
 </p>
 
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-6090450625874947";
+/* Labs */
+google_ad_slot = "2752142924";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
 <h1 id="examples">Examples</h1>
 
 <h2>Default View</h2>
@@ -318,6 +330,13 @@ $(function()
 		longitude: 9.473413,
 		zoom: 10
 	});
+});
+
+$('#nav').delegate('a', 'click', function()
+{
+	var id = $(this).attr('href').replace('#', '');
+	var offset = $('#' + id).offset();
+	$('html, body').animate({ scrollTop: offset.top }, 350);
 });
 </script>
 
