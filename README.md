@@ -1,6 +1,6 @@
 # What is gMap?
 
-gMap is a lightweight [jQuery](http://www.jquery.com) plugin that helps you embed Google Maps into your website. With only 2 KB in size it is very flexible and highly customizable.
+gMap is a lightweight [jQuery](http://www.jquery.com) plugin that helps you embed Google Maps into your website. With less than 2 KB in size (minified and gzipped) it is very flexible and highly customizable.
 
 ## What's different from the original?
 

@@ -3,7 +3,7 @@
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
  * @author	Cedric Kastner <cedric@nur-text.de> and Mario Estrada <me@mario.ec>
- * @version	2.0rc
+ * @version	2.0
  */
 (function($)
 {
