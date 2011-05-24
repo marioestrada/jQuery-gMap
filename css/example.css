@@ -86,7 +86,9 @@ h2{
 }
 
 pre{
-	padding: 10px 10px 10px 20px;
+	padding: 10px;
+	/*word-wrap: break-word;*/
+	overflow: auto;
 }
 pre,
 code{

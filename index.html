@@ -156,8 +156,16 @@ $("#map_extended").gMap({
 
 <h1 id="docs">Documentation</h1>
 
-<p>This version uses the same documentation as the <a href="http://gmap.nurtext.de/documentation.html">original version</a> with the following differences:</p> 
- 
+<p>You need to use the Maps API V3 Javascript from Google, you can set the <code>sensor</code> parameter to <code>true</code> or <code>false</code> to detect the user's location, <strong>there's no need to generate an API key</strong>:</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://maps.google.com/maps/api/js?sensor=<strong>true</strong>&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-1.6.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.gmap.min.js&quot;&gt;&lt;/script&gt;
+</pre>
+
+<p>This version uses the same documentation as the <a href="http://gmap.nurtext.de/documentation.html">original version</a> with the following differences:</p>
+
 <p>The <code>maptype</code> has to be set as an <strong>string</strong> and can be set to any of these values: <code>'HYBRID'</code>, <code>'TERRAIN'</code>, <code>'SATELLITE'</code> or <code>'ROADMAP'</code>.</p> 
  
 <p>Added the <code>shadowanchor</code> setting to position the shadow properly.</p> 
