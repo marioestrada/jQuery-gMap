@@ -1,17 +1,26 @@
 /**
- * jQuery gMap
+ * jQuery gMap - Google Maps API V3
  *
- * @url		http://gmap.nurtext.de/
- * @author	Cedric Kastner <cedric@nur-text.de>
- * @version	1.1.0
+ * @url		http://github.com/marioestrada/jQuery-gMap
+ * @author	Cedric Kastner <cedric@nur-text.de> and Mario Estrada <me@mario.ec>
+ * @version	2.0rc
  */
 (function($)
 {
 	$.gMap = {};
 	
 	// Main plugin function
-	$.fn.gMap = function(options)
+	$.fn.gMap = function(options, methods_options)
 	{
+		// Optional methods
+		switch(options)
+		{
+		case 'addMarker':
+			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content]);
+		case 'centerAt':
+			return $(this).trigger('gMap.centerAt', [methods_options.latitude, methods_options.longitude, methods_options.zoom]);
+		}
+		
 		// Build main options before element iteration
 		opts = $.extend({}, $.fn.gMap.defaults, options);
     	
@@ -236,17 +245,6 @@
 			iconanchor: [9, 34],
 			shadowanchor: [19, 34]
 		}
-	}
-	
-	
-	$.fn.gMapAddMarker = function(latitude, longitude, content)
-	{
-		$(this).trigger('gMap.addMarker', [latitude, longitude, content]);
-	}
-	
-	$.fn.gMapCenterAt = function(latitude, longitude, zoom)
-	{
-		$(this).trigger('gMap.centerAt', [latitude, longitude, zoom]);
 	}
 	
 })(jQuery);

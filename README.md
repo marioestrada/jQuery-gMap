@@ -6,7 +6,7 @@ gMap is a lightweight [jQuery](http://www.jquery.com) plugin that helps you embe
 
 This fork of the original gMap plugin works with the [Google Maps API V3](http://code.google.com/apis/maps/documentation/javascript/) which is faster and has better support for mobile devices as well as traditional browsers. This version of the API also has the benefit that it doesn't require an API key, so no more generating keys for development and production.
 
-This version also adds the `gMapCenterAt` and `gMapAddMarker` methods for manipulating the generated maps.
+This version also adds additional methods (See below) for manipulating the generated maps.
 
 ## Example
 
@@ -64,6 +64,17 @@ A whole set of options can be set as follows:
 		longitude: -80.272,
 		zoom: 10
 	}
+
+## Aditional Methods
+
+This methods should be called on elements with initialized maps.
+
+* `centerAt`, usage:
+
+        $('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
+* `addMarker`, usage:
+
+        $('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
 
 ## Original License
 
