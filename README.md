@@ -12,7 +12,9 @@ This version also adds additional methods (See below) for manipulating the gener
 
 This tiny line of code is being used to embed the map below. Simple, isn't it?
 
-    $("#map").gMap();
+```javascript
+$("#map").gMap();
+```
 
 ## Different Usage
 
@@ -36,55 +38,59 @@ The `control` setting now can be set to `false` for no control or as an Javascri
 
 A whole set of options can be set as follows:
 
-	var options = {
-		controls: {
-            panControl: true,
-            zoomControl: true,
-            mapTypeControl: true,
-            scaleControl: true,
-            streetViewControl: true,
-            overviewMapControl: true
-        },
-		scrollwheel: false,
-		maptype: 'TERRAIN',
-		markers: [
-			{
-				latitude: -2.2014,
-				longitude: -80.9763,
-			},
-	        {
-				address: "Guayaquil, Ecuador",
-				html: "My Hometown",
-				icon: {
-					image: "images/gmap_pin_grey.png",
-					iconsize: [26, 46],
-					iconanchor: [12,46]
-				}
-			}
-		],
-		icon: {
-			image: "http://www.google.com/mapfiles/marker.png",
-			shadow: "http://www.google.com/mapfiles/shadow50.png",
-			iconsize: [20, 34],
-			shadowsize: [37, 34],
-			iconanchor: [9, 34],
-			shadowanchor: [19, 34]
+```javascript
+var options = {
+	controls: {
+           panControl: true,
+           zoomControl: true,
+           mapTypeControl: true,
+           scaleControl: true,
+           streetViewControl: true,
+           overviewMapControl: true
+       },
+	scrollwheel: false,
+	maptype: 'TERRAIN',
+	markers: [
+		{
+			latitude: -2.2014,
+			longitude: -80.9763,
 		},
-		latitude: -2.282,
-		longitude: -80.272,
-		zoom: 10
-	}
+        {
+			address: "Guayaquil, Ecuador",
+			html: "My Hometown",
+			icon: {
+				image: "images/gmap_pin_grey.png",
+				iconsize: [26, 46],
+				iconanchor: [12,46]
+			}
+		}
+	],
+	icon: {
+		image: "http://www.google.com/mapfiles/marker.png",
+		shadow: "http://www.google.com/mapfiles/shadow50.png",
+		iconsize: [20, 34],
+		shadowsize: [37, 34],
+		iconanchor: [9, 34],
+		shadowanchor: [19, 34]
+	},
+	latitude: -2.282,
+	longitude: -80.272,
+	zoom: 10
+}
+```
 
 ## Aditional Methods
 
 This methods should be called on elements with initialized maps.
 
 * `centerAt`, usage:
-
+```javascript
         $('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
+```
 * `addMarker`, usage:
-
+```javascript
         $('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
+```
 
 ## Original License
 
