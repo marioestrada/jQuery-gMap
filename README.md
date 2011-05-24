@@ -6,6 +6,8 @@ gMap is a lightweight [jQuery](http://www.jquery.com) plugin that helps you embe
 
 This fork of the original gMap plugin works with the [Google Maps API V3](http://code.google.com/apis/maps/documentation/javascript/) which is faster and has better support for mobile devices as well as traditional browsers. This version of the API also has the benefit that it doesn't require an API key, so no more generating keys for development and production.
 
+This version also adds the `gMapCenterAt` and `gMapAddMarker` methods for manipulating the generated maps.
+
 ## Example
 
 This tiny line of code is being used to embed the map below. Simple, isn't it?
