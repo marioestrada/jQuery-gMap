@@ -60,6 +60,7 @@ h2{
 	height: 20px;
 }
 #nav li a{
+	position: relative;
 	display: block;
 	height: 30px;
 	line-height: 30px;
@@ -71,6 +72,25 @@ h2{
 	font-size: 16px;
 	font-weight: bold;
 	color: #fff;
+	border-radius: 2px;
+	-moz-transition: 	all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	transition: 		all 0.1s linear;
+}
+#nav li a:hover{
+	background-color: #1AC018 !important;
+	-webkit-box-shadow: 0 2px 0 #17961A;
+	-moz-box-shadow: 0 2px 0 #17961A;
+	box-shadow: 0 2px 0 #17961A;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.35);
+	top: -2px;
+	text-decoration: none;
+}
+#nav li a:active{
+	top: 0;
+	-webkit-box-shadow: 0 0 0 #17961A;
+	-moz-box-shadow: 0 0 0 #17961A;
+	box-shadow: 0 0 0 #0CB225;
 }
 
 .map{
@@ -86,10 +106,18 @@ h2{
 }
 
 pre{
+	border-radius: 3px;
 	font-size: 12px;
 	padding: 10px;
 	/*word-wrap: break-word;*/
 	overflow: auto;
+	-moz-transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+pre:hover{
+	background-color: #F2F7F8;
+	border-color: #D2DFEA;
 }
 pre,
 code{
