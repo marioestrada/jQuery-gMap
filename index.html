@@ -47,6 +47,8 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <h2>Default View</h2>
 
+<p>This map will show your current location if your browser supports the Geolocation API and you allow it to run.</p>
+
 <div id="map" class="map">
     <p>This will be replaced with the Google Map.</p>
 </div>
@@ -159,10 +161,10 @@ $("#map_extended").gMap({
 
 <h1 id="docs">Documentation</h1>
 
-<p>You need to use the Maps API V3 Javascript from Google, you can set the <code>sensor</code> parameter to <code>true</code> or <code>false</code> to detect the user's location, <strong>there's no need to generate an API key</strong>:</p>
+<p>You need to use the <a href="http://code.google.com/apis/maps/documentation/javascript/">Maps API V3</a> Javascript from Google, you can set the <code>sensor</code> parameter to <code>true</code> or <code>false</code> if you're going to detect the user's location, <strong>there's no need to generate an API key</strong>:</p>
 
 <pre>
-&lt;script type=&quot;text/javascript&quot; src=&quot;http://maps.google.com/maps/api/js?sensor=<strong>true</strong>&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://maps.google.com/maps/api/js?sensor=<strong>false</strong>&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-1.6.1.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;jquery.gmap.min.js&quot;&gt;&lt;/script&gt;
 </pre>
@@ -342,6 +344,21 @@ $(function()
 		longitude: 9.473413,
 		zoom: 10
 	});
+	
+	// Detect user location
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position)
+		{
+			$('#map').gMap('addMarker', {
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude,
+				content: 'You\'re Here!'
+			});
+		}, function()
+		{
+			//console.log('Couldn\'t find you :(');
+		});
+	}
 });
 
 $('body').delegate('a[href^="#"]', 'click', function()
