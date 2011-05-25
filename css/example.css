@@ -42,8 +42,11 @@ h1, h2, h3{
 h1{
 	color: #E1182F;
 	font-size: 30px;
-	border-top: 1px solid #d0d0d0;
+	border-top: 1px solid #ddd;
 	padding-top: 15px;
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.075), rgba(0,0,0,0) 20%);
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0.075), rgba(0,0,0,0) 20%);
+	background-image: linear-gradient(top, rgba(0,0,0,0.075), rgba(0,0,0,0) 20%);
 }
 
 h1.title{
