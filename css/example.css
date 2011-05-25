@@ -42,6 +42,7 @@ h1.title{
 	border-top: 0;
 	padding-top: 0;
 	background: transparent;
+	text-shadow: 0 2px #AD001E;
 }
 
 h2{
@@ -61,6 +62,7 @@ h2{
 }
 #nav li a{
 	position: relative;
+	top: 0;
 	display: block;
 	height: 30px;
 	line-height: 30px;
@@ -76,21 +78,24 @@ h2{
 	-moz-transition: 	all 0.1s linear;
 	-webkit-transition: all 0.1s linear;
 	transition: 		all 0.1s linear;
+	-webkit-box-shadow: 0 0 0 #17961A;
+	-moz-box-shadow: 0 0 0 #17961A;
+	box-shadow: 0 0 0 #17961A;
 }
 #nav li a:hover{
 	background-color: #1AC018 !important;
-	-webkit-box-shadow: 0 2px 0 #17961A;
-	-moz-box-shadow: 0 2px 0 #17961A;
-	box-shadow: 0 2px 0 #17961A;
 	text-shadow: 0 -1px 0 rgba(0,0,0,0.35);
 	top: -2px;
 	text-decoration: none;
+	-webkit-box-shadow: 0 2px 0 #17961A;
+	-moz-box-shadow: 0 2px 0 #17961A;
+	box-shadow: 0 2px 0 #17961A;
 }
 #nav li a:active{
 	top: 0;
 	-webkit-box-shadow: 0 0 0 #17961A;
 	-moz-box-shadow: 0 0 0 #17961A;
-	box-shadow: 0 0 0 #0CB225;
+	box-shadow: 0 0 0 #17961A;
 }
 
 .map{
@@ -126,5 +131,10 @@ code{
 }
 
 #footer{
+	padding: 5px 0 0;
 	border-top: 1px solid #ccc;
+	font-size: 12px;
+}
+#footer p{
+	margin: 5px 0;
 }

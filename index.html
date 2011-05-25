@@ -33,10 +33,10 @@
 
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-6090450625874947";
-/* Labs */
-google_ad_slot = "2752142924";
+/* Labs banner */
+google_ad_slot = "2239002263";
 google_ad_width = 468;
-google_ad_height = 15;
+google_ad_height = 60;
 //-->
 </script>
 <script type="text/javascript"
@@ -254,6 +254,7 @@ $('#map').gMap('addMarker',
 </ul>
 
 <div id="footer">
+	<p><a href="#download"><strong>Download</strong></a> | <a href="#examples"><strong>Examples</strong></a> | <a href="#docs"><strong>Documentation</strong></a></p>
 	<p><strong>Licensed under Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">BY-SA 3.0</a>.</strong></p>
 </div>
 
@@ -343,7 +344,7 @@ $(function()
 	});
 });
 
-$('#nav').delegate('a', 'click', function()
+$('body').delegate('a[href^="#"]', 'click', function()
 {
 	var id = $(this).attr('href').replace('#', '');
 	var offset = $('#' + id).offset();
