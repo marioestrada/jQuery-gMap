@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=620, initial-scale=1, maximum-scale=1">
+    <title>jQuery gMap - Examples</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:bolditalic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/example.css" />
+</head>
+<body>
+
+<a href="http://github.com/marioestrada/jQuery-gMap"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+
+<h1 class="title">jQuery gMap - Google Maps API V3</h1>
+
+<p><strong>gMap</strong> is a jQuery plugin that helps you embed Google Maps into your website. With less than 2 KB (minified and gzipped) in size it is very flexible and highly customizable</p>
+
+<p>Original version by <a href="http://gmap.nurtext.de/">Cedric Kasner</a>, modified by <a href="http://mario.ec">Mario Estrada</a> to use the <a href="http://code.google.com/apis/maps/documentation/javascript/">Google Maps API V3</a>.</p>
+
+<h1 id="examples">Examples</h1>
+
+<h2>Default View</h2>
+
+<p>This map will show your current location if your browser supports the Geolocation API and you allow it to run.</p>
+
+<div id="map" class="map">
+    <p>This will be replaced with the Google Map.</p>
+</div>
+
+<h3>Code:</h3>
+<pre>
+$('#map').gMap();
+</pre>
+
+<h2>Custom Controls and Map Type</h2>
+<div id="map_controls" class="map">
+    <p>This will be replaced with the Google Map.</p>
+</div>
+
+<h3>Code:</h3>
+<pre>
+$('#map_controls').gMap(
+{
+     latitude: -2.206,
+     longitude: -79.897,
+     maptype: 'TERRAIN',
+     zoom: 8,
+     controls: {
+         panControl: true,
+         zoomControl: false,
+         mapTypeControl: true,
+         scaleControl: false,
+         streetViewControl: false,
+         overviewMapControl: false
+     }
+});
+</pre>
+
+<h2>Markers</h2>
+<div id="map_addresses" class="map">
+    <p>This will be replaced with the Google Map.</p>
+</div>
+
+<h3>Code:</h3>
+<pre>
+ $('#map_addresses').gMap({
+	address: "Quito, Ecuador",
+	zoom: 5,
+	markers:[
+		{
+			latitude: -2.2014,
+			longitude: -80.9763,
+			html: "_latlng"
+		},
+		{
+			address: "Guayaquil, Ecuador",
+			html: "My Hometown"
+		},
+		{
+			address: "Galapagos, Ecuador",
+			html: "_address"
+		}
+	]
+});
+</pre>
+
+<h2>Kitchen Sink - Extended Usage</h2>
+<div id="map_extended" class="map">
+    <p>This will be replaced with the Google Map.</p>
+</div>
+
+<h3>Code:</h3>
+<pre>
+$("#map_extended").gMap({
+	controls: false,
+	scrollwheel: false,
+	maptype: 'TERRAIN',
+	markers: [
+		{
+			latitude: 47.670553,
+			longitude: 9.588479,
+			icon: {
+				image: "images/gmap_pin_orange.png",
+				iconsize: [26, 46],
+				iconanchor: [12,46],
+				infowindowanchor: [12, 0]
+			}
+		},
+        {
+			latitude: 47.65197522925437,
+			longitude: 9.47845458984375
+		},
+		{
+			latitude: 47.594996,
+			longitude: 9.600708,
+			icon: {
+				image: "images/gmap_pin_grey.png",
+				iconsize: [26, 46],
+				iconanchor: [12,46],
+				infowindowanchor: [12, 0]
+			}
+		}
+	],
+	icon: {
+		image: "images/gmap_pin.png", 
+		iconsize: [26, 46],
+		iconanchor: [12, 46],
+		infowindowanchor: [12, 0]
+	},
+	latitude: 47.58969,
+	longitude: 9.473413,
+	zoom: 10
+});
+</pre>
+
+<div id="footer">
+	<p><strong>Licensed under Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">BY-SA 3.0</a>.</strong></p>
+</div>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="jquery.gmap.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(function()
+{
+   $('#map').gMap();
+   
+   $('#map_controls').gMap(
+   {
+        latitude: -2.206,
+        longitude: -79.897,
+        maptype: 'TERRAIN', // 'HYBRID', 'SATELLITE', 'ROADMAP' or 'TERRAIN'
+        zoom: 8,
+        controls: {
+            panControl: true,
+            zoomControl: false,
+            mapTypeControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+        }
+   });
+   
+   $('#map_addresses').gMap({
+        address: "Quito, Ecuador",
+        zoom: 5,
+		markers:[
+			{
+				latitude: -2.2014,
+				longitude: -80.9763,
+				html: "_latlng"
+			},
+			{
+				address: "Guayaquil, Ecuador",
+				html: "My Hometown"
+			},
+			{
+				address: "Galapagos, Ecuador",
+				html: "_address"
+			}
+		]
+    });
+
+	$("#map_extended").gMap({
+		controls: false,
+		scrollwheel: false,
+		maptype: 'TERRAIN',
+		markers: [
+			{
+				latitude: 47.670553,
+				longitude: 9.588479,
+				icon: {
+					image: "images/gmap_pin_orange.png",
+					iconsize: [26, 46],
+					iconanchor: [12,46],
+					infowindowanchor: [12, 0]
+				}
+			},
+	        {
+				latitude: 47.65197522925437,
+				longitude: 9.47845458984375
+			},
+			{
+				latitude: 47.594996,
+				longitude: 9.600708,
+				icon: {
+					image: "images/gmap_pin_grey.png",
+					iconsize: [26, 46],
+					iconanchor: [12,46],
+					infowindowanchor: [12, 0]
+				}
+			}
+		],
+		icon: {
+			image: "images/gmap_pin.png", 
+			iconsize: [26, 46],
+			iconanchor: [12, 46],
+			infowindowanchor: [12, 0]
+		},
+		latitude: 47.58969,
+		longitude: 9.473413,
+		zoom: 10
+	});
+});
+</script>
+
+</body>
+</html>
