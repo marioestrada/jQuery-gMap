@@ -7,6 +7,16 @@ body{
     margin: 0 auto;
 }
 
+::-moz-selection {
+	background-color: #FFC22C;
+	text-shadow: 0 1px 1px #fff;
+}
+
+::selection {
+	background-color: #FFC22C;
+	text-shadow: 0 1px 1px #fff;
+}
+
 a{
 	color: #0CB225;
 	text-decoration: none;
