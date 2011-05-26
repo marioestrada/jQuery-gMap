@@ -14,7 +14,7 @@
 		switch(options)
 		{
 		case 'addMarker':
-			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content, methods_options.marker, methods_options.popup]);
+			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content, methods_options.icon, methods_options.popup]);
 		case 'centerAt':
 			return $(this).trigger('gMap.centerAt', [methods_options.latitude, methods_options.longitude, methods_options.zoom]);
 		}
@@ -127,8 +127,6 @@
 				var glatlng = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
 
 				var gmarker = new google.maps.Marker({
-					icon: gicon.getIcon(),
-					shadow: gicon.getShadow(),
 					position: glatlng
 				});
 
@@ -146,6 +144,9 @@
 						marker_shadow.anchor = new google.maps.Point(icon.shadowanchor[0], icon.shadowanchor[1]);
 						gicon.setShadow(marker_shadow);
 					}
+				}else{
+					gmarker.setIcon(gicon.getIcon());
+					gmarker.setShadow(gicon.getShadow());
 				}
 				
 				if(content)

@@ -33,6 +33,11 @@ p{
 	line-height: 18px;
 }
 
+p.note{
+	font-size: 11px;
+	font-style: italic;
+}
+
 h1, h2, h3{
 	font-family: 'Lato', sans-serif;
 	font-style: italic;
