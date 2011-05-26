@@ -133,9 +133,13 @@
 				
 				if(content)
 				{
+					if(content == '_latlng')
+						content = latitude + ', ' + longitude;
+					
 					var infowindow = new google.maps.InfoWindow({
 						content: opts.html_prepend + content + opts.html_append
 					});
+					
 					google.maps.event.addListener(gmarker, 'click', function()
 					{
 						last_infowindow.close();
@@ -183,7 +187,7 @@
 				{
 					// Check for reference to the marker's address
 					if (marker.html == '_address')
-						marker.html = opts.html_prepend + marker.address + opts.html_prepend;
+						marker.html = marker.address;
 					
 					// Get the point for given address
 					$geocoder.geocode({
@@ -194,17 +198,13 @@
 							// Create marker
 							if(gresult.length > 0)
 							{
-								$(this).trigger('gMap.addMarker', [marker.html, gresult[0].geometry.location.latitude, gresult[0].geometry.location.longitude, gmarker[j]]);
+								$(this).trigger('gMap.addMarker', [gresult[0].geometry.location.latitude, gresult[0].geometry.location.longitude, marker.html, gmarker[j]]);
 							}
 						};
 					})(j)
 					);
 				}else{
-					// Check for reference to the marker's latitude/longitude
-					if (marker.html == '_latlng')
-						marker.html = opts.html_prepend + marker.latitude + ', ' + marker.longitude + opts.html_append;
-					
-					$(this).trigger('gMap.addMarker', [marker.html, marker.latitude, marker.longitude, gmarker[j]]);
+					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, gmarker[j]]);
 				}
 			}
 		});
@@ -229,7 +229,7 @@
 			iconsize: [20, 34],
 			shadowsize: [37, 34],
 			iconanchor: [9, 34],
-			shadowanchor: [19, 34]
+			shadowanchor: [6, 34]
 		}
 	}
 	
