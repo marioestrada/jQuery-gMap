@@ -125,6 +125,7 @@
 			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content, marker, popup)
 			{
 				var glatlng = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
+				marker = marker || gicon;
 				var gmarker = new google.maps.Marker({
 					icon: marker.getIcon(),
 					shadow: marker.getShadow(),
@@ -153,14 +154,14 @@
 			});
 			
 			// Loop through marker array
-			var gmarker = [];
+			var gmarker;
 			var infowindows = [];
 			for (var j = 0; j < opts.markers.length; j++)
 			{
 				// Get the options from current marker
 				marker = opts.markers[j];
 				
-				gmarker[j] = new google.maps.Marker({
+				gmarker = new google.maps.Marker({
 					icon: gicon.getIcon(),
 					shadow: gicon.getShadow()
 				});
@@ -171,14 +172,14 @@
 					marker_icon = new google.maps.MarkerImage(marker.icon.image);
 					marker_icon.size = new google.maps.Size(marker.icon.iconsize[0], marker.icon.iconsize[1]);
 					marker_icon.anchor = new google.maps.Point(marker.icon.iconanchor[0], marker.icon.iconanchor[1]);
-					gmarker[j].setIcon(marker_icon);
+					gmarker.setIcon(marker_icon);
 					
 					if(marker.icon.shadow)
 					{
 						marker_shadow = new google.maps.MarkerImage(marker.icon.shadow);
 						marker_shadow.size = new google.maps.Size(marker.icon.shadowsize[0], marker.icon.shadowsize[1]);
 						marker_shadow.anchor = new google.maps.Point(marker.icon.shadowanchor[0], marker.icon.shadowanchor[1]);
-						gmarker[j].setShadow(marker_shadow);
+						gmarker.setShadow(marker_shadow);
 					}	
 				}
 				
@@ -193,19 +194,19 @@
 					var $this = this;
 					$geocoder.geocode({
 						address: marker.address
-					}, (function(j, marker, $this){
+					}, (function(gmarker, marker, $this){
 						return function(gresult, status)
 						{
 							// Create marker
 							if(gresult.length > 0)
 							{
-								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, gmarker[j]]);
+								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, gmarker]);
 							}
 						};
-					})(j, marker, $this)
+					})(gmarker, marker, $this)
 					);
 				}else{
-					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, gmarker[j]]);
+					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, gmarker]);
 				}
 			}
 		});
@@ -220,7 +221,7 @@
 		zoom: 1,
 		markers: [],
 		controls: [],
-		scrollwheel: true,
+		scrollwheel: false,
 		maptype: 'ROADMAP',
 		html_prepend: '<div class="gmap_marker">',
 		html_append: '</div>',
