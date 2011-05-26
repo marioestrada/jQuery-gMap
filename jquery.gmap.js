@@ -211,7 +211,7 @@
 					shadow: gicon.getShadow(),
 					position: glatlng
 				});
-				infowindow = new google.maps.InfoWindow({
+				var infowindow = new google.maps.InfoWindow({
 					content: opts.html_prepend + content + opts.html_append
 				});
 				google.maps.event.addListener(gmarker, 'click', function()
