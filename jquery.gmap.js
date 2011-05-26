@@ -3,12 +3,10 @@
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
  * @author	Cedric Kastner <cedric@nur-text.de> and Mario Estrada <me@mario.ec>
- * @version	2.0
+ * @version	2.1
  */
 (function($)
 {
-	$.gMap = {};
-	
 	// Main plugin function
 	$.fn.gMap = function(options, methods_options)
 	{
@@ -16,7 +14,7 @@
 		switch(options)
 		{
 		case 'addMarker':
-			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content]);
+			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content, methods_options.marker, methods_options.popup]);
 		case 'centerAt':
 			return $(this).trigger('gMap.centerAt', [methods_options.latitude, methods_options.longitude, methods_options.zoom]);
 		}
@@ -113,7 +111,42 @@
 				marker_shadow.anchor = new google.maps.Point(opts.icon.shadowanchor[0], opts.icon.shadowanchor[1]);
 				gicon.setShadow(marker_shadow);
 			}
-			$.gMap.gIcon = gicon;
+			
+			// Bind actions
+			$(this).bind('gMap.centerAt', function(e, latitude, longitude, zoom)
+			{
+				if(zoom)
+					$gmap.setZoom(zoom);
+
+				$gmap.panTo(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
+			});
+			
+			var last_infowindow;
+			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content, marker, popup)
+			{
+				var glatlng = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
+				var gmarker = new google.maps.Marker({
+					icon: marker.getIcon(),
+					shadow: marker.getShadow(),
+					position: glatlng
+				});
+				
+				if(content)
+				{
+					var infowindow = new google.maps.InfoWindow({
+						content: opts.html_prepend + content + opts.html_append
+					});
+					google.maps.event.addListener(gmarker, 'click', function()
+					{
+						last_infowindow.close();
+						infowindow.open($gmap, gmarker);
+						last_infowindow = infowindow;
+					});
+
+					popup && infowindow.open($gmap, gmarker);
+				}
+				gmarker.setMap($gmap);
+			});
 			
 			// Loop through marker array
 			var gmarker = [];
@@ -150,7 +183,7 @@
 				{
 					// Check for reference to the marker's address
 					if (marker.html == '_address')
-						marker.html = marker.address;
+						marker.html = opts.html_prepend + marker.address + opts.html_prepend;
 					
 					// Get the point for given address
 					$geocoder.geocode({
@@ -161,8 +194,7 @@
 							// Create marker
 							if(gresult.length > 0)
 							{
-								gmarker[j].setPosition(gresult[0].geometry.location);
-								gmarker[j].setMap($gmap);
+								$(this).trigger('gMap.addMarker', [marker.html, gresult[0].geometry.location.latitude, gresult[0].geometry.location.longitude, gmarker[j]]);
 							}
 						};
 					})(j)
@@ -170,57 +202,11 @@
 				}else{
 					// Check for reference to the marker's latitude/longitude
 					if (marker.html == '_latlng')
-						marker.html = marker.latitude + ', ' + marker.longitude;
+						marker.html = opts.html_prepend + marker.latitude + ', ' + marker.longitude + opts.html_append;
 					
-					// Create marker
-					gmarker[j].setPosition(new google.maps.LatLng(marker.latitude, marker.longitude));
-					gmarker[j].setMap($gmap);
-				}
-				
-				if(marker.html)
-				{
-					infowindows[j] = new google.maps.InfoWindow({
-						content: opts.html_prepend + marker.html + opts.html_append
-					});
-					(function(j){
-						google.maps.event.addListener(gmarker[j], 'click', function()
-						{
-							infowindows[j].open($gmap, gmarker[j]);
-						});
-					})(j);
-				}
-				if(marker.html && marker.popup)
-				{
-					infowindows[j].open($gmap, gmarker[j]);
+					$(this).trigger('gMap.addMarker', [marker.html, marker.latitude, marker.longitude, gmarker[j]]);
 				}
 			}
-			
-			$(this).bind('gMap.centerAt', function(e, latitude, longitude, zoom)
-			{
-				if(zoom)
-					$gmap.setZoom(zoom);
-
-				$gmap.panTo(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
-			});
-			
-			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content)
-			{
-				var glatlng = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
-				var gmarker = new google.maps.Marker({
-					icon: gicon.getIcon(),
-					shadow: gicon.getShadow(),
-					position: glatlng
-				});
-				var infowindow = new google.maps.InfoWindow({
-					content: opts.html_prepend + content + opts.html_append
-				});
-				google.maps.event.addListener(gmarker, 'click', function()
-				{
-					infowindow.open($gmap, gmarker);
-				});
-				gmarker.setMap($gmap);
-				return gmarker;
-			});
 		});
 		
 	}
