@@ -110,7 +110,7 @@
 			{
 				marker_shadow = new google.maps.MarkerImage(opts.icon.shadow);
 				marker_shadow.size = new google.maps.Size(opts.icon.shadowsize[0], opts.icon.shadowsize[1]);
-				marker_icon.anchor = new google.maps.Point(opts.icon.shadowanchor[0], opts.icon.shadowanchor[1]);
+				marker_shadow.anchor = new google.maps.Point(opts.icon.shadowanchor[0], opts.icon.shadowanchor[1]);
 				gicon.setShadow(marker_shadow);
 			}
 			$.gMap.gIcon = gicon;
