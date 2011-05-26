@@ -240,7 +240,7 @@
 			iconsize: [20, 34],
 			shadowsize: [37, 34],
 			iconanchor: [9, 34],
-			shadowanchor: [19, 34]
+			shadowanchor: [7, 34]
 		}
 	}
 	
