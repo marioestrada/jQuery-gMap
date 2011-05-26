@@ -122,15 +122,31 @@
 			});
 			
 			var last_infowindow;
-			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content, marker, popup)
+			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content, icon, popup)
 			{
 				var glatlng = new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
-				marker = marker || gicon;
+
 				var gmarker = new google.maps.Marker({
-					icon: marker.getIcon(),
-					shadow: marker.getShadow(),
+					icon: gicon.getIcon(),
+					shadow: gicon.getShadow(),
 					position: glatlng
 				});
+
+				if(icon)
+				{
+					marker_icon = new google.maps.MarkerImage(icon.image);
+					marker_icon.size = new google.maps.Size(icon.iconsize[0], icon.iconsize[1]);
+					marker_icon.anchor = new google.maps.Point(icon.iconanchor[0], icon.iconanchor[1]);
+					gmarker.setIcon(marker_icon);
+					
+					if(icon.shadow)
+					{
+						marker_shadow = new google.maps.MarkerImage(icon.shadow);
+						marker_shadow.size = new google.maps.Size(icon.shadowsize[0], icon.shadowsize[1]);
+						marker_shadow.anchor = new google.maps.Point(icon.shadowanchor[0], icon.shadowanchor[1]);
+						gicon.setShadow(marker_shadow);
+					}
+				}
 				
 				if(content)
 				{
@@ -154,34 +170,10 @@
 			});
 			
 			// Loop through marker array
-			var gmarker;
-			var infowindows = [];
 			for (var j = 0; j < opts.markers.length; j++)
 			{
 				// Get the options from current marker
 				marker = opts.markers[j];
-				
-				gmarker = new google.maps.Marker({
-					icon: gicon.getIcon(),
-					shadow: gicon.getShadow()
-				});
-				
-				if (marker.icon)
-				{
-					// Overwrite global options
-					marker_icon = new google.maps.MarkerImage(marker.icon.image);
-					marker_icon.size = new google.maps.Size(marker.icon.iconsize[0], marker.icon.iconsize[1]);
-					marker_icon.anchor = new google.maps.Point(marker.icon.iconanchor[0], marker.icon.iconanchor[1]);
-					gmarker.setIcon(marker_icon);
-					
-					if(marker.icon.shadow)
-					{
-						marker_shadow = new google.maps.MarkerImage(marker.icon.shadow);
-						marker_shadow.size = new google.maps.Size(marker.icon.shadowsize[0], marker.icon.shadowsize[1]);
-						marker_shadow.anchor = new google.maps.Point(marker.icon.shadowanchor[0], marker.icon.shadowanchor[1]);
-						gmarker.setShadow(marker_shadow);
-					}	
-				}
 				
 				// Check if address is available
 				if (marker.address)
@@ -194,19 +186,19 @@
 					var $this = this;
 					$geocoder.geocode({
 						address: marker.address
-					}, (function(gmarker, marker, $this){
+					}, (function(marker, $this){
 						return function(gresult, status)
 						{
 							// Create marker
 							if(gresult.length > 0)
 							{
-								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, gmarker]);
+								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, marker.icon]);
 							}
 						};
-					})(gmarker, marker, $this)
+					})(marker, $this)
 					);
 				}else{
-					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, gmarker]);
+					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, marker.icon]);
 				}
 			}
 		});
