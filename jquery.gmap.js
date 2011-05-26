@@ -7,8 +7,6 @@
  */
 (function($)
 {
-	$.gMap = {};
-	
 	// Main plugin function
 	$.fn.gMap = function(options, methods_options)
 	{
@@ -113,7 +111,6 @@
 				marker_shadow.anchor = new google.maps.Point(opts.icon.shadowanchor[0], opts.icon.shadowanchor[1]);
 				gicon.setShadow(marker_shadow);
 			}
-			$.gMap.gIcon = gicon;
 			
 			// Loop through marker array
 			var gmarker = [];
