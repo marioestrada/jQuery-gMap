@@ -142,7 +142,7 @@
 					
 					google.maps.event.addListener(gmarker, 'click', function()
 					{
-						last_infowindow.close();
+						last_infowindow && last_infowindow.close();
 						infowindow.open($gmap, gmarker);
 						last_infowindow = infowindow;
 					});
@@ -190,18 +190,19 @@
 						marker.html = marker.address;
 					
 					// Get the point for given address
+					var $this = this;
 					$geocoder.geocode({
 						address: marker.address
-					}, (function(j){
+					}, (function(j, marker, $this){
 						return function(gresult, status)
 						{
 							// Create marker
 							if(gresult.length > 0)
 							{
-								$(this).trigger('gMap.addMarker', [gresult[0].geometry.location.latitude, gresult[0].geometry.location.longitude, marker.html, gmarker[j]]);
+								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, gmarker[j]]);
 							}
 						};
-					})(j)
+					})(j, marker, $this)
 					);
 				}else{
 					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, gmarker[j]]);
