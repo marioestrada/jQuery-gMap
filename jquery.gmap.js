@@ -40,7 +40,7 @@
 						address: opts.address
 					}, function(gresult, status)
 					{
-						if(gresult.length > 0)
+						if(gresult && gresult.length)
 							$gmap.setCenter(gresult[0].geometry.location);
 					}
 				);
