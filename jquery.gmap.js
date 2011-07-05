@@ -65,7 +65,7 @@
 									address: opts.markers[0].address
 								}, function(gresult, status)
 								{
-									if(gresult.length > 0)
+									if(gresult && gresult.length > 0)
 										$gmap.setCenter(gresult[0].geometry.location);
 								}
 							);
@@ -191,7 +191,7 @@
 						return function(gresult, status)
 						{
 							// Create marker
-							if(gresult.length > 0)
+							if(gresult && gresult.length > 0)
 							{
 								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, marker.icon]);
 							}
