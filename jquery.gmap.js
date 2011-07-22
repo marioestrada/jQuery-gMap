@@ -10,6 +10,23 @@
 	// Main plugin function
 	$.fn.gMap = function(options, methods_options)
 	{
+    //Asynchronously load Maps API
+    if (!window.google || !google.maps)
+    {
+      var $this = this, args = arguments, cb = 'callback_' + Math.random().toString().replace('.', '');
+      window[cb] = function()
+      {
+        $.fn.gMap.apply($this, args);
+        window[cb] = null;
+        try
+        {
+          delete window[cb];
+        } catch(e) {}
+      };
+      $.getScript(location.protocol + '//maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=' + cb);
+      return this;
+    }
+
 		// Optional methods
 		switch(options)
 		{
