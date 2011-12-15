@@ -2,8 +2,8 @@
  * jQuery gMap - Google Maps API V3
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
- * @author	Cedric Kastner <cedric@nur-text.de> and Mario Estrada <me@mario.ec>
- * @version	2.1
+ * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>
+ * @version	2.1.1
  */
 (function($)
 {
@@ -20,7 +20,7 @@
 		}
 		
 		// Build main options before element iteration
-		opts = $.extend({}, $.fn.gMap.defaults, options);
+		var opts = $.extend({}, $.fn.gMap.defaults, options);
     	
 		// Iterate through each element
 		return this.each(function()
@@ -29,7 +29,7 @@
 			var $gmap = new google.maps.Map(this);
 			
 			// Create new object to geocode addresses
-			$geocoder = new google.maps.Geocoder();
+			var $geocoder = new google.maps.Geocoder();
 			
 			// Check for address to center on
 			if (opts.address)
@@ -85,7 +85,7 @@
 			$gmap.setMapTypeId(google.maps.MapTypeId[opts.maptype]);
 			
 			// Set scrollwheel option
-			map_options = { scrollwheel: opts.scrollwheel };
+			var map_options = { scrollwheel: opts.scrollwheel, disableDoubleClickZoom: !opts.doubleclickzoom };
 			// Check for map controls
 			if(opts.controls === false){
 				$.extend(map_options, { disableDefaultUI: true });
@@ -215,6 +215,7 @@
 		markers: [],
 		controls: [],
 		scrollwheel: false,
+		doubleclickzoom: true,
 		maptype: 'ROADMAP',
 		html_prepend: '<div class="gmap_marker">',
 		html_append: '</div>',
