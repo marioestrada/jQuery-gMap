@@ -165,7 +165,13 @@
 						last_infowindow = infowindow;
 					});
 
-					popup && infowindow.open($gmap, gmarker);
+					if(popup)
+					{
+						google.maps.event.addListenerOnce($gmap, 'tilesloaded', function()
+						{
+							infowindow.open($gmap, gmarker);
+						});
+					}
 				}
 				gmarker.setMap($gmap);
 			});
@@ -193,13 +199,13 @@
 							// Create marker
 							if(gresult && gresult.length > 0)
 							{
-								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, marker.icon]);
+								$($this).trigger('gMap.addMarker', [gresult[0].geometry.location.lat(), gresult[0].geometry.location.lng(), marker.html, marker.icon, marker.popup]);
 							}
 						};
 					})(marker, $this)
 					);
 				}else{
-					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, marker.icon]);
+					$(this).trigger('gMap.addMarker', [marker.latitude, marker.longitude, marker.html, marker.icon, marker.popup]);
 				}
 			}
 		});
