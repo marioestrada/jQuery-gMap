@@ -3,7 +3,7 @@
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
  * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>
- * @version	2.1.2
+ * @version	2.1.3
  */
 (function($)
 {
@@ -17,6 +17,8 @@
 			return $(this).trigger('gMap.addMarker', [methods_options.latitude, methods_options.longitude, methods_options.content, methods_options.icon, methods_options.popup]);
 		case 'centerAt':
 			return $(this).trigger('gMap.centerAt', [methods_options.latitude, methods_options.longitude, methods_options.zoom]);
+		case 'clearMarkers':
+			return $(this).trigger('gMap.clearMarkers');
 		}
 		
 		// Build main options before element iteration
@@ -121,6 +123,15 @@
 				$gmap.panTo(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
 			});
 			
+			// Clear Markers
+			var overlays = [];
+			$(this).bind('gMap.clearMarkers', function() 
+			{
+				while(overlays[0]){
+					overlays.pop().setMap(null);
+				}
+			});
+
 			var last_infowindow;
 			$(this).bind('gMap.addMarker', function(e, latitude, longitude, content, icon, popup)
 			{
@@ -174,6 +185,7 @@
 					}
 				}
 				gmarker.setMap($gmap);
+				overlays.push(gmarker);
 			});
 			
 			// Loop through marker array
