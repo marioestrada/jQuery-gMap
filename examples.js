@@ -8,7 +8,7 @@ $(function()
         longitude: -79.897,
         maptype: 'TERRAIN', // 'HYBRID', 'SATELLITE', 'ROADMAP' or 'TERRAIN'
         zoom: 8,
-        controls: {
+		controls: {
             panControl: true,
             zoomControl: false,
             mapTypeControl: true,
@@ -43,6 +43,26 @@ $(function()
 		controls: false,
 		scrollwheel: true,
 		maptype: 'TERRAIN',
+		useCustomStyle: true,
+		styleList: [
+			{
+				"featureType": "landscape.natural.landcover",
+				"elementType": "geometry.fill",
+				"stylers": [
+					{
+						"color": "#808080"
+					}
+				]
+			},
+			{
+				"featureType": "water",
+				"stylers": [
+					{
+						"color": "#383880"
+					}
+				]
+			}
+		],
 		markers: [
 			{
 				latitude: 47.670553,
@@ -53,7 +73,7 @@ $(function()
 					iconanchor: [12,46]
 				}
 			},
-	        {
+			{
 				latitude: 47.65197522925437,
 				longitude: 9.47845458984375
 			},

@@ -36,6 +36,10 @@ This version no longer uses the `infowindowanchor` setting.
 
 The `control` setting now can be set to `false` for no control or as an Javascript object containing each individual control as a property.
 
+The `useCustomStyle` setting turns on or off the use of custom styling information. 
+
+The `styleList` setting takes a JSON encoded array which can be very easily obtained using Google's [Styled Map Wizard](http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html)
+
 A whole set of options can be set as follows:
 
 ```javascript
@@ -49,6 +53,26 @@ var options = {
            overviewMapControl: true
        },
 	scrollwheel: false,
+    useCustomStyle: true,
+	styleList: [
+		{
+			"featureType": "landscape.natural.landcover",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#808080"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"color": "#383880"
+				}
+			]
+		}
+	],
 	maptype: 'TERRAIN',
 	markers: [
 		{
@@ -103,3 +127,5 @@ gMap is licensed under [Creative Commons BY-SA 3.0](http://creativecommons.org/l
 This plugin was originally developed by [Cedric Kastner](http://gmap.nurtext.de/).
 
 Refactoring to use the Google Maps API V3 was done by [Mario Estrada](http://mario.ec).
+
+Modification to allow custom styles added by [Jon Moldofsky](http://www.jgrantdesign.com)

@@ -94,6 +94,26 @@ $("#map_extended").gMap({
 	controls: false,
 	scrollwheel: true,
 	maptype: 'TERRAIN',
+	useCustomStyle: true,
+	styleList: [
+		{
+			"featureType": "landscape.natural.landcover",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#808080"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"color": "#383880"
+				}
+			]
+		}
+	],
 	markers: [
 		{
 			latitude: 47.670553,
@@ -128,6 +148,7 @@ $("#map_extended").gMap({
 	zoom: 10
 });
 </pre>
+<h4>Note: Go to <br /><a href='http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html' target='_blank'>http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html</a><br /> to see all custom styles</h4>
 
 <div id="footer">
 	<p><strong>Licensed under Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">BY-SA 3.0</a>.</strong></p>

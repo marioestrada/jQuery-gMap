@@ -2,8 +2,8 @@
  * jQuery gMap - Google Maps API V3
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
- * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>
- * @version	2.1.3
+ * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>; modified to add custom styles by Jonathan Moldofsky <jm@jgrant.us>
+ * @version	2.1.4
  */
 (function($)
 {
@@ -23,7 +23,7 @@
 		
 		// Build main options before element iteration
 		var opts = $.extend({}, $.fn.gMap.defaults, options);
-    	
+
 		// Iterate through each element
 		return this.each(function()
 		{
@@ -83,8 +83,7 @@
 			}	
 			$gmap.setZoom(opts.zoom);
 			
-			// Set the preferred map type
-			$gmap.setMapTypeId(google.maps.MapTypeId[opts.maptype]);
+			
 			
 			// Set scrollwheel option
 			var map_options = { scrollwheel: opts.scrollwheel, disableDoubleClickZoom: !opts.doubleclickzoom };
@@ -95,7 +94,20 @@
 				$.extend(map_options, opts.controls, { disableDefaultUI: true });
 			}
 			
-			$gmap.setOptions(map_options);
+			if (opts.useCustomStyle === false)
+			{
+				$gmap.setMapTypeId(google.maps.MapTypeId[opts.maptype]);
+			}
+			else
+			{
+				var styles = opts.styleList;
+				var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+				$.extend(map_options, { mapTypeControlOptions: {  mapTypeIds: [google.maps.MapTypeId[opts.maptype], 'map_style'] } });
+				$gmap.setOptions(map_options);
+				$gmap.mapTypes.set('map_style', styledMap);
+				$gmap.setMapTypeId('map_style');
+			}
+			
 									
 			// Create new icon
 			var gicon = new google.maps.Marker();
@@ -235,6 +247,11 @@
 		scrollwheel: false,
 		doubleclickzoom: true,
 		maptype: 'ROADMAP',
+		useCustomStyle: false,
+		styleList: 
+		[
+			{ "featureType": "water", "stylers": [ { "hue": "#00ffff" } ] },
+		],
 		html_prepend: '<div class="gmap_marker">',
 		html_append: '</div>',
 		icon: {
