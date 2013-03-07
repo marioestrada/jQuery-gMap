@@ -94,6 +94,26 @@ $("#map_extended").gMap({
 	controls: false,
 	scrollwheel: true,
 	maptype: 'TERRAIN',
+	useCustomStyle: true,
+	styleList: [
+		{
+			"featureType": "landscape.natural.landcover",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"color": "#808080"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"color": "#383880"
+				}
+			]
+		}
+	],
 	markers: [
 		{
 			latitude: 47.670553,
