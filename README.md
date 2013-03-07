@@ -127,3 +127,5 @@ gMap is licensed under [Creative Commons BY-SA 3.0](http://creativecommons.org/l
 This plugin was originally developed by [Cedric Kastner](http://gmap.nurtext.de/).
 
 Refactoring to use the Google Maps API V3 was done by [Mario Estrada](http://mario.ec).
+
+Modification to allow custom styles added by [Jon Moldofsky](http://www.jgrantdesign.com)
