@@ -38,7 +38,7 @@ The `control` setting now can be set to `false` for no control or as an Javascri
 
 The `useCustomStyle` setting turns on or off the use of custom styling information. 
 
-The `styleList` setting takes a JSON encoded array which can be very easily obtained using Google's Styled Map Wizard (http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html)
+The `styleList` setting takes a JSON encoded array which can be very easily obtained using Google's [Styled Map Wizard](http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html)
 
 A whole set of options can be set as follows:
 
