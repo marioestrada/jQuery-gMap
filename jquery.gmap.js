@@ -2,7 +2,7 @@
  * jQuery gMap - Google Maps API V3
  *
  * @url		http://github.com/marioestrada/jQuery-gMap
- * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>
+ * @author	Mario Estrada <me@mario.ec> based on original plugin by Cedric Kastner <cedric@nur-text.de>; modified to add custom styles by Jonathan Moldofsky <jm@jgrant.us>
  * @version	2.1.4
  */
 (function($)
