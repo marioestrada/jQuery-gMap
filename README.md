@@ -79,6 +79,12 @@ var options = {
 }
 ```
 
+## Accessing the Google Map object reference
+
+The reference is saved using jQuery `data` on every element the plugin affects, to access it use something like:
+
+`$('#map').data('gMap.reference')`
+
 ## Aditional Methods
 
 This methods should be called on elements with initialized maps.
