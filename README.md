@@ -87,7 +87,7 @@ The reference is saved using jQuery `data` on every element the plugin affects, 
 
 ## Aditional Methods
 
-This methods should be called on elements with initialized maps.
+These methods should be called on elements with initialized maps.
 
 * `centerAt`, usage:
 
@@ -98,6 +98,12 @@ $('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
 
 ```javascript
 $('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
+```
+
+* `zoomToFitMarkers`, zooms the map to fit all of the markers on it. Usage:
+
+```javascript
+$('#map').gMap('zoomToFitMarkers');
 ```
 
 ## Original License
