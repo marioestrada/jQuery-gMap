@@ -147,14 +147,14 @@
 				if(icon)
 				{
 					marker_icon = new google.maps.MarkerImage(icon.image);
-					marker_icon.size = new google.maps.Size(icon.iconsize[0], icon.iconsize[1]);
+					marker_icon.scaledSize = new google.maps.Size(icon.iconsize[0], icon.iconsize[1]);
 					marker_icon.anchor = new google.maps.Point(icon.iconanchor[0], icon.iconanchor[1]);
 					gmarker.setIcon(marker_icon);
 
 					if(icon.shadow)
 					{
 						marker_shadow = new google.maps.MarkerImage(icon.shadow);
-						marker_shadow.size = new google.maps.Size(icon.shadowsize[0], icon.shadowsize[1]);
+						marker_shadow.scaledSize = new google.maps.Size(icon.shadowsize[0], icon.shadowsize[1]);
 						marker_shadow.anchor = new google.maps.Point(icon.shadowanchor[0], icon.shadowanchor[1]);
 						gicon.setShadow(marker_shadow);
 					}
