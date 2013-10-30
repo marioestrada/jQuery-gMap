@@ -1,0 +1,28 @@
+{
+  "name": "jquery.gmap",
+  "preferGlobal": true,
+  "version": "2.1.5",
+  "author": "Mario Estrada <me@mario.ec>",
+  "homepage": "http://labs.mario.ec/jquery-gmap/",
+  "description": "jQuery plugin that helps you embed Google Maps into your website",
+  "contributors": [],
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marioestrada/jQuery-gMap.git"
+  },
+  "dependencies": {
+    "jquery": ">= 1.6.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.9",
+    "grunt-contrib-uglify":  "0.2.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8.8"
+  }
+}
