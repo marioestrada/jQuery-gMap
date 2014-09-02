@@ -49,6 +49,7 @@ var options = {
            overviewMapControl: true
        },
 	scrollwheel: false,
+	draggable: true,
 	maptype: 'TERRAIN',
 	markers: [
 		{
@@ -98,6 +99,27 @@ $('#map').gMap('centerAt', { latitude: 0, longitude: 0, zoom: 10 });
 
 ```javascript
 $('#map').gMap('addMarker', { latitude: 0, longitude: 0, content: 'Some HTML content' });
+```
+
+## Disable dragging on mobile devices
+You may encounter an issue where mobile users who are scrolling down your page cannot scroll the page without dragging the map. For this reason, you may want to consider disabling the `draggable` option on mobile devices.
+
+```javascript
+var isDraggable = $(document).width() > 480 ? true : false;
+
+var options = {
+	controls: {
+           panControl: true,
+           zoomControl: true,
+           mapTypeControl: true,
+           scaleControl: true,
+           streetViewControl: true,
+           overviewMapControl: true
+       },
+	scrollwheel: false,
+	draggable: isDraggable,
+	...
+}
 ```
 
 ## Original License
