@@ -96,7 +96,7 @@
       $gmap.setMapTypeId(google.maps.MapTypeId[opts.maptype]);
 
       // Set scrollwheel option
-      var map_options = { scrollwheel: opts.scrollwheel, disableDoubleClickZoom: !opts.doubleclickzoom };
+      var map_options = { scrollwheel: opts.scrollwheel, disableDoubleClickZoom: !opts.doubleclickzoom, draggable: opts.draggable };
       // Check for map controls
       if(opts.controls === false){
         $.extend(map_options, { disableDefaultUI: true });
