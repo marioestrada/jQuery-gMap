@@ -1,0 +1,24 @@
+{
+  "name": "jquery.gmap",
+  "description": "jQuery plugin that helps you embed Google Maps into your website",
+  "main": "jquery.gmap.js",
+  "authors": [
+    "Mario Estrada"
+  ],
+  "license": "CC0-1.0",
+  "keywords": [
+    "google",
+    "maps"
+  ],
+  "homepage": "https://github.com/yf/jQuery-gMap",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
